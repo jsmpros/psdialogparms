@@ -1,0 +1,19 @@
+import JSM_DIALOGS:Parameters:Parameters;
+
+class DialogParameters extends JSM_DIALOGS:Parameters:Parameters
+   property boolean bClose;
+   property boolean bAutoCloseWarn;
+   property boolean bTail;
+   property boolean bCenter;
+   
+protected
+   method introspectProperties() Returns string;
+end-class;
+
+
+REM ** protected methods;
+method introspectProperties
+   /+ Returns String +/
+   Return %Super.introspectProperties() | %IntBroker.GetAppClassProperties("JSM_DIALOGS:Parameters:DialogParameters");
+end-method;
+

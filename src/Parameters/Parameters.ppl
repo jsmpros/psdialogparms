@@ -1,0 +1,66 @@
+class Parameters
+   property boolean bAutoClose;
+   property string sTitle;
+   
+   method toString() Returns string;
+   
+protected
+   REM ** Reflection won't traverse class hierarchy. Each subclass should invoke %Super.introspectProperties and append results to get the full hierarchy;
+   method introspectProperties() Returns string;
+   
+private
+   method booleanToBinary(&test As boolean) Returns string;
+   
+end-class;
+
+REM ** public methods;
+method toString
+   /+ Returns String +/
+   Local string &result;
+   
+   Local array of string &props = Split(%This.introspectProperties(), ")");
+   Local array of string &propAndType;
+   Local string &prop;
+   Local string &type;
+   
+   Local number &propsIdx = 0;
+   While &props.Next(&propsIdx)
+      &propAndType = Split(&props [&propsIdx], "(");
+      &prop = &propAndType [1];
+      &type = &propAndType [2];
+      
+      rem TODO: evaluate [2]. If B, then booleanToBinary;
+      If (&type = "B") Then
+         &result = &result | &prop | "@" | %This.booleanToBinary(ObjectGetProperty(%This, &prop)) | ";";
+      Else
+         &result = &result | &prop | "@" | ObjectGetProperty(%This, &prop) | ";";
+      End-If;
+      rem &result = &result | &propAndType [1] | ":" | &propAndType [2];
+   End-While;
+   
+   
+   Return &result;
+   
+   /*Return "bAutoClose@" | %This.booleanToBinary(%This.bAutoClose) | ";sTitle@" | %This.sTitle | ";";*/
+end-method;
+
+
+REM ** protected methods;
+method introspectProperties
+   /+ Returns String +/
+   Return %IntBroker.GetAppClassProperties("JSM_DIALOGS:Parameters:Parameters");
+end-method;
+
+
+REM ** private methods;
+method booleanToBinary
+   /+ &test as Boolean +/
+   /+ Returns String +/
+   If (&test) Then
+      Return "1";
+   Else
+      Return "0";
+   End-If;
+   
+end-method;
+
