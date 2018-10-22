@@ -23,3 +23,9 @@ Local string &parmString;
 
 &parmString = &params.toString();
 ```
+
+Result
+
+```PeopleCode
+sTitle@Options;bAutoClose@0;bClose@0;bTail@0;bAutoCloseWarn@0;bCenter@1;
+```
