@@ -11,3 +11,15 @@ The contents of this project is for demonstration and training purposes only and
 ## Source Structure
 
 The Application Classes in the src directory originally belonged to an application package named `JSM_DIALOGS`. Classes were child members of the path `JSM_DIALOGS:Parameters`. You are welcome to change the class and package structure. Just be sure to update internal code references, such as imports and introspection statements.
+
+## Usage
+
+```PeopleCode
+Local JSM_DIALOGS:Parameters:DialogParameters &params = create JSM_DIALOGS:Parameters:DialogParameters();
+Local string &parmString;
+
+&params.sTitle = "Options";
+&params.bCenter = True;
+
+&parmString = &params.toString();
+```
